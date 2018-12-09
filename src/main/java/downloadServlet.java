@@ -22,6 +22,7 @@ public class downloadServlet extends HttpServlet {
         ServletOutputStream sos = resp.getOutputStream();
         //执行输出操作
         int len = 1;
+
         byte[] b = new byte[1024];
         while((len = fis.read(b)) != -1) {
             sos.write(b, 0, len);
