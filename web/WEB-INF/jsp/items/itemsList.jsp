@@ -13,7 +13,7 @@
     <title>查询商品列表</title>
 </head>
 <body>
-<form action="/test.action" method="post" >
+<form action="test.action" method="post" >
     <table width="100%" border="1" >
         <tr><input type="submit" value="查询"/></tr>
     </table>
