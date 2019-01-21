@@ -42,4 +42,8 @@ public class Items {
     public void setDesc(String desc) {
         this.desc = desc == null ? null : desc.trim();
     }
+
+    public String toString() {
+        return "{ id: " + id+ "; name: " + name + "; price: " + price + "}";
+    }
 }

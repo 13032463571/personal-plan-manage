@@ -8,5 +8,8 @@
     <result column="price" jdbcType="DECIMAL" property="price" />
     <result column="desc" jdbcType="VARCHAR" property="desc" />
   </resultMap>
+  <select id="selectAllItems" resultMap="BaseResultMap" >
+    select * from items
+  </select>
 
 </mapper>

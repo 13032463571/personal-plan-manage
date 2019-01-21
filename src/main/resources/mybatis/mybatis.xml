@@ -3,7 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="mybatis/jdbc.properties" />
+    <!--<properties resource="mybatis/jdbc.properties" />-->
+    <!--<properties url="file:E:\IdeaWorkSpace\my_projects\personal-plan-manage\src\main\resources\mybatis\jdbc.properties" />-->
+    <properties>
+        <property name="jdbc.driver" value="com.mysql.jdbc.Driver" />
+        <property name="jdbc.url" value="jdbc:mysql://144.34.214.20:3306/ppm?characterEncoding=utf8&amp;serverTimezone=UTC" />
+        <property name="jdbc.username" value="root" />
+        <property name="jdbc.password" value="123456a?" />
+    </properties>
     <settings>
         <setting name="cacheEnabled" value="true"/>
         <setting name="lazyLoadingEnabled" value="true"/>
@@ -42,6 +49,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="org/mybatis/example/BlogMapper.xml"/>
+        <!--<package name="com.ppm.mapper" ></package>-->
+        <!--<mapper class="com.ppm.mapper.ItemsMapper"></mapper>-->
+        <mapper url="file:E:\IdeaWorkSpace\my_projects\personal-plan-manage\src\main\java\com\ppm\mapper\ItemsMapper.xml"></mapper>
     </mappers>
 </configuration>

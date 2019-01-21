@@ -1,5 +1,9 @@
 package com.ppm.mapper;
 
-public interface ItemsMapper {
+import com.ppm.pojo.Items;
 
+import java.util.List;
+
+public interface ItemsMapper {
+    public List<Items> selectAllItems();
 }
