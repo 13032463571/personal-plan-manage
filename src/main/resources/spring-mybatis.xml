@@ -2,13 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <context:property-placeholder location="classpath:mybatis/jdbc.properties" ignore-unresolvable="true" />
     <!--配置SqlSessionFactoryBean，需要关联数据源、pojo、mapper.xml-->
@@ -26,6 +26,20 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <!--事务规则配置-->
+    <tx:advice id="ppmAdvice" transaction-manager="transactionManager" >
+        <tx:attributes>
+            <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="select*" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="ppmService" expression="execution(public * com.*.service.*.*(..))"/>
+        <aop:advisor advice-ref="ppmAdvice" pointcut-ref="ppmService" />
+    </aop:config>
     <!--开启声明式注解-->
     <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -56,4 +70,8 @@
         <!-- <property name="filters" value="stat" /> -->
         <property name="filters" value="mergeStat" />
     </bean>
+    <!--扫描除了handler以外的bean-->
+    <context:component-scan base-package="com.ppm">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
 </beans>

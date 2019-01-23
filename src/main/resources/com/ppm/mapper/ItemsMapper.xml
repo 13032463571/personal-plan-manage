@@ -11,5 +11,8 @@
   <select id="selectAllItems" resultMap="BaseResultMap" >
     select * from items
   </select>
+  <insert id="insertItems" parameterType="Items" useGeneratedKeys="true" keyProperty="id">
+    insert into items (id, name, price, desc) values (#{id}, #{name}, #{price}, #{desc});
+  </insert>
 
 </mapper>

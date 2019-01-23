@@ -17,4 +17,11 @@ public class ItemsServiceImpl implements IItemsService {
     public List<Items> selectAllItems() {
         return itemsMapper.selectAllItems();
     }
+
+    public void insertItems(List<Items> itemsList) {
+
+        itemsMapper.insertItems(itemsList.get(0));
+        int i = 2/0;
+        itemsMapper.insertItems(itemsList.get(1));
+    }
 }
