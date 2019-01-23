@@ -30,14 +30,14 @@
     <tx:advice id="ppmAdvice" transaction-manager="transactionManager" >
         <tx:attributes>
             <tx:method name="update*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
-            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
+            <tx:method name="insert*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.ArithmeticException"/>
             <tx:method name="delete*" propagation="REQUIRED" read-only="false" rollback-for="java.lang.Exception"/>
             <tx:method name="select*" propagation="SUPPORTS" />
         </tx:attributes>
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="ppmService" expression="execution(public * com.*.service.*.*(..))"/>
+        <aop:pointcut id="ppmService" expression="execution(public * com..service..*(..))"/>
         <aop:advisor advice-ref="ppmAdvice" pointcut-ref="ppmService" />
     </aop:config>
     <!--开启声明式注解-->
