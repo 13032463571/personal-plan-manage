@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:property-placeholder location="classpath:mybatis/jdbc.properties" ignore-unresolvable="true" />
     <!--配置SqlSessionFactoryBean，需要关联数据源、pojo、mapper.xml-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
         <property name="dataSource" ref="dataSource" />
         <property name="typeAliasesPackage" value="com.ppm.pojo" />
-        <property name="mapperLocations" value="classpath*: mybatis/mapper/**/*.xml" />
+        <property name="mapperLocations" value="classpath*: com/ppm/mapper/**/*.xml" />
     </bean>
     <!--配置mapper bean，有此配置Spring 将 mybatis中所有mapper 与 上面的SqlSessionFactoryBean 相关联-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer" >
@@ -26,7 +29,8 @@
     <!--开启声明式注解-->
     <tx:annotation-driven transaction-manager="transactionManager" />
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="driver" value="${jdbc.driver}"/>
+        <!--<property name="driver" value="${jdbc.driver}" />-->
+        <property name="driverClassName" value="${jdbc.driver}" />
         <property name="url" value="${jdbc.url}"/>
         <property name="username" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>

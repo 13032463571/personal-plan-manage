@@ -1,8 +1,9 @@
 package com.ppm.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Items {
+public class Items implements Serializable {
     private Integer id;
 
     private String name;

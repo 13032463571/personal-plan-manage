@@ -27,7 +27,7 @@
     <c:forEach items="${itemsList }" var="item" >
         <tr>
             <td>${item.name }</td>
-            <td>${item.prize }</td>
+            <td>${item.price }</td>
             <td>${item.desc }</td>
         </tr>
     </c:forEach>
