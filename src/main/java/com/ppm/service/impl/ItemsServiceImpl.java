@@ -5,6 +5,8 @@ import com.ppm.pojo.Items;
 import com.ppm.service.interfaces.IItemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,10 +20,14 @@ public class ItemsServiceImpl implements IItemsService {
         return itemsMapper.selectAllItems();
     }
 
-    public void insertItems(List<Items> itemsList) {
-
-        itemsMapper.insertItems(itemsList.get(0));
-        int i = 2/0;
-        itemsMapper.insertItems(itemsList.get(1));
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
+    public void insertItems(List<Items> itemsList) throws RuntimeException{
+        try {
+            itemsMapper.insertItems(itemsList.get(0));
+            int i = 2 / 0;
+            itemsMapper.insertItems(itemsList.get(1));
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
     }
 }

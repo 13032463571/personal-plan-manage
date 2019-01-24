@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IItemsService {
     public List<Items> selectAllItems();
-    public void insertItems(List<Items> itemsList) ;
+    public void insertItems(List<Items> itemsList) throws Exception;
 }
