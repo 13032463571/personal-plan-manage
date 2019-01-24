@@ -20,11 +20,9 @@ public class ItemsServiceImpl implements IItemsService {
         return itemsMapper.selectAllItems();
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = RuntimeException.class)
     public void insertItems(List<Items> itemsList) throws RuntimeException{
         try {
             itemsMapper.insertItems(itemsList.get(0));
-            int i = 2 / 0;
             itemsMapper.insertItems(itemsList.get(1));
         } catch (Exception e) {
             throw new RuntimeException();
